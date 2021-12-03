@@ -38,12 +38,81 @@ section#source {
 </div>
 <hr>
 </header><main>
-<pre><code class="nim hljs">saveMusic(<span class="hljs-string">&quot;output.wav&quot;</span>):
-  (piano, (tempo: <span class="hljs-number">74</span>), <span class="hljs-number">1</span> / <span class="hljs-number">8</span>, {-d, -a, e, fx}, a, <span class="hljs-number">1</span> / <span class="hljs-number">2</span>, {fx, +d}, <span class="hljs-number">1</span> / <span class="hljs-number">8</span>,
-   {-e, e, +c}, a, <span class="hljs-number">1</span> / <span class="hljs-number">2</span>, {c, e}, <span class="hljs-number">1</span> / <span class="hljs-number">8</span>, {-d, -a, e, fx}, a, +d, +cx, +e, +d, b,
-   +cx, <span class="hljs-number">1</span> / <span class="hljs-number">2</span>, {-e, c, a}, {c, e})</code></pre>
+<h1>🎶🐳 paramidib</h1>
+<p>paramidi<strong>b</strong> is an easy way to make <a href="https://github.com/paranim/paramidi">paramidi</a> available with <a href="https://github.com/pietroppeter/nimib">nimib</a>.</p>
+<p>It exports <code>paramidi</code> and provides two templates:</p>
+<ol>
+<li><code>saveMusic</code>: takes a valid score for paramidi and creates
+a <code>wav</code> file with the generated music.
+It is adapted from <a href="https://github.com/paranim/paramidi_starter">paramidi_starter</a> and it can be used even
+without nimib (paramidib itself does not depend on nimib).</li>
+<li><code>nbAudio</code>: a new nimib block which create an audio control
+to play the <code>wav</code> file.
+In the following example is called with <code>nbAudio(&quot;output.wav&quot;)</code></li>
+</ol>
+<pre><code class="nim hljs"><span class="hljs-keyword">import</span> paramidib
+
+saveMusic(<span class="hljs-string">&quot;output.wav&quot;</span>):
+  (piano,
+    (tempo: <span class="hljs-number">74</span>),
+    <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, {-d, -a, e, fx}, a,
+    <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, {fx, +d},
+    <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, {-e, e, +c}, a,
+    <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, {c, e},
+    <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, {-d, -a, e, fx}, a, +d, +cx, +e, +d, b, +cx,
+    <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, {-e, c, a}, {c, e})</code></pre>
 <audio controls>
-  <source src="output.wav" type="audio/wav">
+  <source src="./output.wav" type="audio/wav">
+Your browser does not support the audio element.
+</audio>
+<p>Another example where the score is a json object generated at runtime:</p>
+<pre><code class="nim hljs"><span class="hljs-keyword">import</span> json
+
+<span class="hljs-keyword">let</span>
+  measure1 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">16</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c+&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;d+&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c+&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>]
+  measure2 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">16</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c+&quot;</span>, <span class="hljs-string">&quot;d+&quot;</span>, <span class="hljs-string">&quot;c+&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-string">&quot;b&quot;</span>]
+  measure3 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">16</span>, [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>}, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;b-&quot;</span>, <span class="hljs-string">&quot;g-&quot;</span>], [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>}, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;b-&quot;</span>, <span class="hljs-string">&quot;g-&quot;</span>],
+                <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>}, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;b-&quot;</span>, <span class="hljs-string">&quot;g-&quot;</span>], [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>}, <span class="hljs-string">&quot;e&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>, <span class="hljs-string">&quot;g-&quot;</span>],
+                [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>}, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;b-&quot;</span>, <span class="hljs-string">&quot;g-&quot;</span>]]
+  measure4 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">16</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>]
+  measure5 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>]
+  measure6 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>}, <span class="hljs-string">&quot;f&quot;</span>, <span class="hljs-string">&quot;a-&quot;</span>], <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;c&quot;</span>]
+  score* =
+    %*[{<span class="hljs-string">&quot;tempo&quot;</span>: <span class="hljs-number">80</span>, <span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">3</span>},
+      [<span class="hljs-string">&quot;guitar&quot;</span>, measure1],
+      [<span class="hljs-string">&quot;banjo&quot;</span>, measure1],
+      [<span class="hljs-string">&quot;guitar&quot;</span>, measure1],
+      [<span class="hljs-string">&quot;guitar&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-string">&quot;a&quot;</span>],
+      [<span class="hljs-string">&quot;banjo&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-string">&quot;g&quot;</span>],
+      [<span class="hljs-string">&quot;guitar&quot;</span>, {<span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">2</span>}, measure2],
+      [<span class="hljs-string">&quot;banjo&quot;</span>, measure2],
+      [<span class="hljs-string">&quot;guitar&quot;</span>, {<span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">2</span>}, measure2],
+      [<span class="hljs-string">&quot;banjo&quot;</span>, measure2],
+      [<span class="hljs-string">&quot;guitar&quot;</span>, measure2],
+      [<span class="hljs-string">&quot;banjo&quot;</span>, measure2],
+      {<span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">4</span>},
+      [<span class="hljs-string">&quot;guitar&quot;</span>, measure3],
+      [<span class="hljs-string">&quot;banjo&quot;</span>, measure3],
+      [<span class="hljs-string">&quot;guitar&quot;</span>, measure3],
+      [<span class="hljs-string">&quot;banjo&quot;</span>, measure3],
+      [<span class="hljs-string">&quot;guitar&quot;</span>, {<span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">2</span>}, measure1],
+      [<span class="hljs-string">&quot;banjo&quot;</span>, {<span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">3</span>}, measure1],
+      {<span class="hljs-string">&quot;tempo&quot;</span>: <span class="hljs-number">120</span>, <span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">3</span>},
+      [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>},
+        [<span class="hljs-string">&quot;banjo&quot;</span>, measure1],
+        [<span class="hljs-string">&quot;guitar&quot;</span>, measure4]],
+      [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>},
+        [<span class="hljs-string">&quot;banjo&quot;</span>, measure1],
+        [<span class="hljs-string">&quot;guitar&quot;</span>, measure4]],
+      [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>},
+        [<span class="hljs-string">&quot;banjo&quot;</span>, measure1],
+        [<span class="hljs-string">&quot;guitar&quot;</span>, measure5]],
+      [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>},
+        [<span class="hljs-string">&quot;banjo&quot;</span>, measure1],
+        [<span class="hljs-string">&quot;guitar&quot;</span>, measure6]]]
+saveMusic(<span class="hljs-string">&quot;dueling_banjos.wav&quot;</span>, score)</code></pre>
+<audio controls>
+  <source src="./dueling_banjos.wav" type="audio/wav">
 Your browser does not support the audio element.
 </audio>
 
@@ -57,10 +126,30 @@ Your browser does not support the audio element.
 </div>
 </footer>
 <section id="source">
-<pre><code class="nim hljs"><span class="hljs-keyword">import</span> paramidib, nimib
+<pre><code class="nim hljs"><span class="hljs-keyword">import</span> nimib
 
 nbInit
+nbText: <span class="hljs-string">&quot;&quot;&quot;# 🎶🐳 paramidib
+
+paramidi**b** is an easy way to make [paramidi] available with [nimib].
+
+It exports `paramidi` and provides two templates:
+  1. `saveMusic`: takes a valid score for paramidi and creates
+     a `wav` file with the generated music.
+     It is adapted from [paramidi_starter] and it can be used even
+     without nimib (paramidib itself does not depend on nimib).
+  2. `nbAudio`: a new nimib block which create an audio control
+     to play the `wav` file.
+     In the following example is called with `nbAudio(&quot;output.wav&quot;)`
+
+[paramidi]: https://github.com/paranim/paramidi
+[nimib]: https://github.com/pietroppeter/nimib
+[paramidi_starter]: https://github.com/paranim/paramidi_starter
+
+&quot;&quot;&quot;</span>
 nbCode:
+  <span class="hljs-keyword">import</span> paramidib
+
   saveMusic(<span class="hljs-string">&quot;output.wav&quot;</span>):
     (piano,
       (tempo: <span class="hljs-number">74</span>),
@@ -71,6 +160,54 @@ nbCode:
       <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, {-d, -a, e, fx}, a, +d, +cx, +e, +d, b, +cx,
       <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, {-e, c, a}, {c, e})
 nbAudio(<span class="hljs-string">&quot;output.wav&quot;</span>)
+nbText: <span class="hljs-string">&quot;Another example where the score is a json object generated at runtime:&quot;</span>
+nbCode:
+  <span class="hljs-keyword">import</span> json
+
+  <span class="hljs-keyword">let</span>
+    measure1 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">16</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c+&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;d+&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c+&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>]
+    measure2 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">16</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c+&quot;</span>, <span class="hljs-string">&quot;d+&quot;</span>, <span class="hljs-string">&quot;c+&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-string">&quot;b&quot;</span>]
+    measure3 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">16</span>, [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>}, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;b-&quot;</span>, <span class="hljs-string">&quot;g-&quot;</span>], [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>}, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;b-&quot;</span>, <span class="hljs-string">&quot;g-&quot;</span>],
+                  <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>}, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;b-&quot;</span>, <span class="hljs-string">&quot;g-&quot;</span>], [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>}, <span class="hljs-string">&quot;e&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>, <span class="hljs-string">&quot;g-&quot;</span>],
+                  [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>}, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;b-&quot;</span>, <span class="hljs-string">&quot;g-&quot;</span>]]
+    measure4 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">16</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>]
+    measure5 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>]
+    measure6 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>}, <span class="hljs-string">&quot;f&quot;</span>, <span class="hljs-string">&quot;a-&quot;</span>], <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;c&quot;</span>]
+    score* =
+      %*[{<span class="hljs-string">&quot;tempo&quot;</span>: <span class="hljs-number">80</span>, <span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">3</span>},
+        [<span class="hljs-string">&quot;guitar&quot;</span>, measure1],
+        [<span class="hljs-string">&quot;banjo&quot;</span>, measure1],
+        [<span class="hljs-string">&quot;guitar&quot;</span>, measure1],
+        [<span class="hljs-string">&quot;guitar&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-string">&quot;a&quot;</span>],
+        [<span class="hljs-string">&quot;banjo&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-string">&quot;g&quot;</span>],
+        [<span class="hljs-string">&quot;guitar&quot;</span>, {<span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">2</span>}, measure2],
+        [<span class="hljs-string">&quot;banjo&quot;</span>, measure2],
+        [<span class="hljs-string">&quot;guitar&quot;</span>, {<span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">2</span>}, measure2],
+        [<span class="hljs-string">&quot;banjo&quot;</span>, measure2],
+        [<span class="hljs-string">&quot;guitar&quot;</span>, measure2],
+        [<span class="hljs-string">&quot;banjo&quot;</span>, measure2],
+        {<span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">4</span>},
+        [<span class="hljs-string">&quot;guitar&quot;</span>, measure3],
+        [<span class="hljs-string">&quot;banjo&quot;</span>, measure3],
+        [<span class="hljs-string">&quot;guitar&quot;</span>, measure3],
+        [<span class="hljs-string">&quot;banjo&quot;</span>, measure3],
+        [<span class="hljs-string">&quot;guitar&quot;</span>, {<span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">2</span>}, measure1],
+        [<span class="hljs-string">&quot;banjo&quot;</span>, {<span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">3</span>}, measure1],
+        {<span class="hljs-string">&quot;tempo&quot;</span>: <span class="hljs-number">120</span>, <span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">3</span>},
+        [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>},
+          [<span class="hljs-string">&quot;banjo&quot;</span>, measure1],
+          [<span class="hljs-string">&quot;guitar&quot;</span>, measure4]],
+        [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>},
+          [<span class="hljs-string">&quot;banjo&quot;</span>, measure1],
+          [<span class="hljs-string">&quot;guitar&quot;</span>, measure4]],
+        [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>},
+          [<span class="hljs-string">&quot;banjo&quot;</span>, measure1],
+          [<span class="hljs-string">&quot;guitar&quot;</span>, measure5]],
+        [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>},
+          [<span class="hljs-string">&quot;banjo&quot;</span>, measure1],
+          [<span class="hljs-string">&quot;guitar&quot;</span>, measure6]]]
+  saveMusic(<span class="hljs-string">&quot;dueling_banjos.wav&quot;</span>, score)
+nbAudio(<span class="hljs-string">&quot;dueling_banjos.wav&quot;</span>)
 nbSave</code></pre>
 </section><script>
 function toggleSourceDisplay() {
