@@ -20,3 +20,10 @@ template saveMusic*(wavFile: string, score: untyped) =
   # writeToDisk:
   common.writeFile(wavFile, res.data, res.data.len.uint32, sampleRate)
   common.play(wavFile, int(res.seconds * 1000f + padding))
+
+template nbAudio*(wavFile: string) =
+  nbText: """<audio controls>
+  <source src="""" & wavFile & """" type="audio/wav">
+Your browser does not support the audio element.
+</audio>
+"""
