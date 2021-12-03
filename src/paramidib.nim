@@ -3,6 +3,7 @@ from paramidib / common import nil
 import paramidi
 import paramidi/tsf
 import paramidi_soundfonts
+import os
 
 export paramidi
 
@@ -14,15 +15,12 @@ template saveMusic*(wavFile: string, score: untyped) =
   tsf_set_output(sf, TSF_MONO, sampleRate, 0)
   var res = render[cshort](compile(scoreObject), sf, sampleRate)
   # create the wav file (without playing it)
-  # writeToDisk:
   common.writeFile(wavFile, res.data, res.data.len.uint32, sampleRate)
-  #const
-  #  padding = 500f # add a half second so it doesn't cut off abruptly
-  #common.play(wavFile, int(res.seconds * 1000f + padding))
 
 template nbAudio*(wavFile: string) =
+  # todo: validate/escape wavFile
   nbText: """<audio controls>
-  <source src="""" & wavFile & """" type="audio/wav">
+  <source src="""" & joinPath(nb.srcDirRel.string, wavFile) & """" type="audio/wav">
 Your browser does not support the audio element.
 </audio>
 """
