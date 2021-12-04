@@ -77,6 +77,7 @@ Your browser does not support the audio element.
   measure4 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">16</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>]
   measure5 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>]
   measure6 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>}, <span class="hljs-string">&quot;f&quot;</span>, <span class="hljs-string">&quot;a-&quot;</span>], <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;c&quot;</span>]
+
   score* =
     %*[{<span class="hljs-string">&quot;tempo&quot;</span>: <span class="hljs-number">80</span>, <span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">3</span>},
       [<span class="hljs-string">&quot;guitar&quot;</span>, measure1],
@@ -110,11 +111,13 @@ Your browser does not support the audio element.
       [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>},
         [<span class="hljs-string">&quot;banjo&quot;</span>, measure1],
         [<span class="hljs-string">&quot;guitar&quot;</span>, measure6]]]
+
 saveMusic(<span class="hljs-string">&quot;dueling_banjos.wav&quot;</span>, score)</code></pre>
 <audio controls>
   <source src="./dueling_banjos.wav" type="audio/wav">
 Your browser does not support the audio element.
 </audio>
+<p>Originally created for Advent Of Nim 🎄👑, 2021, Day 3, <a href="https://pietroppeter.github.io/adventofnim/2021/day03.html#whale_music">Whale Music</a> 🐳🎶.</p>
 
 </main>
 <footer>
@@ -173,6 +176,7 @@ nbCode:
     measure4 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">16</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>]
     measure5 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>]
     measure6 = %*[<span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">8</span>, [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>}, <span class="hljs-string">&quot;f&quot;</span>, <span class="hljs-string">&quot;a-&quot;</span>], <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">1</span>/<span class="hljs-number">4</span>, <span class="hljs-string">&quot;c&quot;</span>]
+
     score* =
       %*[{<span class="hljs-string">&quot;tempo&quot;</span>: <span class="hljs-number">80</span>, <span class="hljs-string">&quot;octave&quot;</span>: <span class="hljs-number">3</span>},
         [<span class="hljs-string">&quot;guitar&quot;</span>, measure1],
@@ -206,8 +210,10 @@ nbCode:
         [{<span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;concurrent&quot;</span>},
           [<span class="hljs-string">&quot;banjo&quot;</span>, measure1],
           [<span class="hljs-string">&quot;guitar&quot;</span>, measure6]]]
+
   saveMusic(<span class="hljs-string">&quot;dueling_banjos.wav&quot;</span>, score)
 nbAudio(<span class="hljs-string">&quot;dueling_banjos.wav&quot;</span>)
+nbText: <span class="hljs-string">&quot;Originally created for Advent Of Nim 🎄👑, 2021, Day 3, [Whale Music](https://pietroppeter.github.io/adventofnim/2021/day03.html#whale_music) 🐳🎶.&quot;</span>
 nbSave</code></pre>
 </section><script>
 function toggleSourceDisplay() {

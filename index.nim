@@ -4,6 +4,7 @@ nbInit
 nbText: """# 🎶🐳 paramidib
 
 paramidi**b** is an easy way to make [paramidi] available with [nimib].
+Install with `nimble install paramidib`.
 
 It exports `paramidi` and provides two templates:
   1. `saveMusic`: takes a valid score for paramidi and creates
@@ -82,4 +83,5 @@ nbCode:
 
   saveMusic("dueling_banjos.wav", score)
 nbAudio("dueling_banjos.wav")
+nbText: "Originally created for Advent Of Nim 🎄👑, 2021, Day 3, [Whale Music](https://pietroppeter.github.io/adventofnim/2021/day03.html#whale_music) 🐳🎶."
 nbSave
