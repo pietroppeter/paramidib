@@ -14,6 +14,7 @@ template saveMusic*(wavFile: string, score: untyped) =
   const sampleRate = 44100
   tsf_set_output(sf, TSF_MONO, sampleRate, 0)
   var res = render[cshort](compile(scoreObject), sf, sampleRate)
+  tsf_close(sf)
   # create the wav file (without playing it)
   common.writeFile(wavFile, res.data, res.data.len.uint32, sampleRate)
 
