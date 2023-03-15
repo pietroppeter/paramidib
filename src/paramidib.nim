@@ -10,7 +10,7 @@ export paramidi
 template saveMusic*(wavFile: string, score: untyped) =
   let scoreObject = score
   # get the sound font, read it from disc
-  var sf = tsf_load_filename(paramidi_soundfonts.getSoundFontPath("generaluser.sf2"))
+  var sf = tsf_load_filename(cstring paramidi_soundfonts.getSoundFontPath("generaluser.sf2"))
   const sampleRate = 44100
   tsf_set_output(sf, TSF_MONO, sampleRate, 0)
   var res = render[cshort](compile(scoreObject), sf, sampleRate)
